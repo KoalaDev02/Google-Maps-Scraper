@@ -19,7 +19,7 @@ This script is intended for **educational purposes only**. Scraping data from Go
 
 ## **Requirements**
 Before running the script, ensure you have the following installed:
-1. **Python 3.8 or higher**
+1. **Python 3.1 or higher**
 2. **Playwright**: Install via `pip install playwright`
    - After installation, run `playwright install` to download the required browser binaries.
 3. **Fake User-Agent**: Install via `pip install fake-useragent`
