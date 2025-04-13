@@ -179,3 +179,4 @@ def main():
             print(f"An error occurred: {e}")
         finally:
             browser.close()
+main()
