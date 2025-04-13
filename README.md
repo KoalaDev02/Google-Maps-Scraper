@@ -38,14 +38,52 @@ Before running the script, ensure you have the following installed:
    ```bash
    git clone https://github.com/KoalaDev02/Google-Maps-Scraper.git
    cd Google-Maps-Scraper
+
+---
+
 ## 🚀 Usage
 Run the script from the terminal:
 
 `python Main.py "your search query"`
-Example:
+
+##Example:
 
 `python Main.py "coffee shops in San Francisco"`
-Notes:
+
+---
+
+##Notes:
 The script will simulate a search on Google Maps, scroll until listings load, and click each listing to extract details.
 
 Results are saved in a file named after your search query (underscores replace spaces), e.g., coffee_shops_in_San_Francisco.csv.
+
+---
+
+## 📤 Output
+
+The output will be a CSV file containing the following fields for each business:
+- Name
+- Address
+- Website
+- Phone
+- Reviews Count
+- 5 Stars
+- 4 Stars
+- 3 Stars
+- 2 Stars
+- 1 Star
+- Average Rating
+- Type
+
+Each file is named after the search query you provided, with spaces replaced by underscores.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork this repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
