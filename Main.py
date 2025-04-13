@@ -9,7 +9,7 @@ while True:
     generated_ua = ua.random
     if "Windows" in generated_ua:
         break
- rev_count=0
+
 # search = input("What do you want to search?: ")
 
 def extract_data(page, selector, attribute=None,):
@@ -51,33 +51,30 @@ def extract_phone(page):
         return str(raw_text)
     return ""
 def extract_star_ratings(page):
+    
     star_ratings = {
         "5 Stars": 0,
         "4 Stars": 0,
         "3 Stars": 0,
         "2 Stars": 0,
         "1 Star": 0,
+        "all reviews":0
     }
 
     rows = page.locator('div.ExlQHd tr.BHOKXe')
     count = rows.count()
-    for i in range(count):
-        row = rows.nth(i)
-
+    
     for i in range(count):
         row = rows.nth(i)
         aria_label = row.get_attribute("aria-label")
         if not aria_label:
-            continue  # Skip if aria-label is missing
+            continue
 
-        parts = aria_label.split(", ")
-        if len(parts) != 2:
-            continue  # Skip malformed strings
-
+        parts = aria_label.split()
         try:
-            stars = parts[0].split()[0]
-            reviews = int(parts[1].split()[0])
-            rev_count+=reviews
+            stars = f"{5-i}"
+            reviews = int(parts[2])
+            star_ratings["all reviews"]+=reviews
             star_ratings[f"{stars} Stars"] = reviews
         except Exception as e:
             continue
@@ -90,7 +87,7 @@ def extract_listing_details(page):
         "Address": extract_data(page, '//button[@data-item-id="address"]',"aria-label"),
         "Website":extract_website(page) ,
         "Phone": extract_phone(page),
-        "Reviews Count": extract_reviews_count(page),
+        "Reviews Count": star_ratings["all reviews"],
         "5 Stars": star_ratings["5 Stars"],
         "4 Stars": star_ratings["4 Stars"],
         "3 Stars": star_ratings["3 Stars"],
@@ -98,7 +95,6 @@ def extract_listing_details(page):
         "1 Star": star_ratings["1 Star"],
         "Average Rating": extract_average_rating(page),
         "Type": extract_title(page),
-        # "Open Hours": extract_open_hours(page),
     }
 
 def scroll_until_target_found(page):
@@ -118,7 +114,7 @@ def scroll_until_target_found(page):
 
 def write_to_csv(data, filename):
     fieldnames = [
-         "Name", "Address", "Website", "Phone", "Reviews Count", "5 Stars", "4 Stars", "3 Stars", "2 Stars", "1 Stars", "Average Rating", "Type"
+         "Name", "Address", "Website", "Phone", "Reviews Count", "5 Stars", "4 Stars", "3 Stars", "2 Stars", "1 Star", "Average Rating", "Type"
     ]
     with open(filename, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
@@ -178,7 +174,7 @@ def main():
             results = []
 
             for listing in listings:
-                listing.click()
+                listing.dblclick()
                 time.sleep(0.5)
                 page.wait_for_selector('//div[@class="TIHn2 "]//h1', timeout=5000)
                 details = extract_listing_details(page)
