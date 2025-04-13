@@ -46,13 +46,14 @@ Run the script from the terminal:
 
 `python Main.py "your search query"`
 
-##Example:
+Example:
 
 `python Main.py "coffee shops in San Francisco"`
 
 ---
 
-##Notes:
+Notes:
+
 The script will simulate a search on Google Maps, scroll until listings load, and click each listing to extract details.
 
 Results are saved in a file named after your search query (underscores replace spaces), e.g., coffee_shops_in_San_Francisco.csv.
